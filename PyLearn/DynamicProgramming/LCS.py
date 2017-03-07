@@ -49,24 +49,53 @@ def findLCS(a,b,res,n,m):
     return lcs
 
 def recursiveLCS_memo(a,b,n,m,map):
-    if n == -1 or m == -1:
-        return 0
-    if map.get((n,m)):
+    if n == len(a) or m == len(b):
+        return [0]
+    if (n,m) in map:
         return map[(n,m)]
     if a[n] == b[m]:
-        map[(n,m)] = 1 + recursiveLCS_memo(a,b,n-1,m-1,map)
+        val = recursiveLCS_memo(a,b,n+1,m+1,map)
+        map[(n,m)] = [1 + val[0]]
+        map[(n,m)].append(a[n])
+        map[(n,m)].extend(val[1:])
         return map[(n, m)]
     else:
-        map[(n, m)] =  max(recursiveLCS_memo(a,b,n-1,m,map),
-                           recursiveLCS_memo(a,b,n,m-1,map))
+        val1 = recursiveLCS_memo(a,b,n+1,m,map)
+        val2 = recursiveLCS_memo(a,b,n,m+1,map)
+        new = []
+        if val1[0] > val2[0]:
+            # new.extend(val1)
+            map[(n,m)] = val1
+        else:
+            # new.extend(val2)
+            map[(n, m)] = val2
+        # map[(n, m)] = new
+        return map[(n, m)]
+
+def recursiveLCS_memo1(a,b,n,m,map):
+    if n == len(a) or m == len(b):
+        return 0
+    if (n,m) in map:
+        return map[(n,m)]
+    if a[n] == b[m]:
+        val = recursiveLCS_memo1(a,b,n+1,m+1,map)
+        map[(n,m)] = 1 + val
+        return map[(n, m)]
+    else:
+        val1 = recursiveLCS_memo1(a,b,n+1,m,map)
+        val2 = recursiveLCS_memo1(a,b,n,m+1,map)
+        if val1 > val2:
+            map[(n, m)] = val1
+        else:
+            map[(n, m)] = val2
         return map[(n, m)]
 
 if __name__ == '__main__':
-    print recursiveLCS([1,3,2,7,8], [3,1,2,7,8], 4, 4)
-    res = []
-    recursiveLCS_returnresult([1, 7, 3, 2, 8], [3, 1, 2, 7, 8], 0, 0,res)
-    print res
-    print recursiveLCS_bottomup([1,3,2,7,8], [3,1,2,7,8], 5, 5)
+    # print recursiveLCS([1,3,2,7,8], [3,1,2,7,8], 4, 4)
+    # res = []
+    # recursiveLCS_returnresult([1, 7, 3, 2, 8], [3, 1, 2, 7, 8], 0, 0,res)
+    # print res
+    # print recursiveLCS_bottomup([1,3,2,7,8], [3,1,2,7,8], 5, 5)
     map = dict()
-    recursiveLCS_memo([1,3,2,7,8], [3,1,2,7,8], 4, 4, map)
-    print map
+    recursiveLCS_memo([1, 0, 0, 1, 0, 1, 0, 1], [0, 1, 0, 1, 1, 0, 1, 1, 0], 0, 0, map)
+    print map[(0,0)]

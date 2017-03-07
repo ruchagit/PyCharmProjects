@@ -174,21 +174,34 @@ def randomKey1(root,k):
     else:
         return randomKey1(root.right, k - rank)
 
+def isBST_recur(root,mn,mx):
+    if root is None:
+        return True
+    if root.val > mn and root.val < mx:
+        return (isBST_recur(root.left, mn, root.val) and
+        isBST_recur(root.right, root.val, mx))
+    else:
+        return False
+
+
 if __name__ == '__main__':
     arr = [7,5,3,6,11,9,8,13]
     root, parent = BSTNode(arr[0]), None
     for i in range(1, len(arr)):
         insert(root, parent, arr[i])
     head1, head2, head3 = root, root, root
-    res = [0] * 14
-    for i in range(100000):
-        choice = random.randint(1,len(arr))
-        node = randomKey1(head1,choice)
-        res[node.val] += 1
-    print [res[x] for x in arr]
+    # res = [0] * 14
+    # for i in range(100000):
+    #     choice = random.randint(1,len(arr))
+    #     node = randomKey1(head1,choice)
+    #     res[node.val] += 1
+    # print [res[x] for x in arr]
+    BSTinorder(head1)
+
+    print isBST_recur(head1, float('-inf'), float('inf'))
     # head1 = head1.right
     # BSTdelete(head1)
-    # BSTlevelorder(head2)
+    # BSTlevelorder(head3)
     # BSTinorder(head1)
     # print "\n"
     # BSTpostorder(head1)
