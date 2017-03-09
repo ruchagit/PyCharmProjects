@@ -26,7 +26,20 @@ def partition(a,start,end):
         a[start], a[rt] = a[rt], a[start]
     return rt
 
+def func(nums,k):
+    a = set()
+    for i in range(len(nums)):
+        if nums[i] in a:
+            return True
+        a.add(nums[i])
+        print a
+        if len(a) > k:
+            a.remove(nums[i-k])
+        print a
+    return False
+
 if __name__ == '__main__':
-    _inString = str('This is easy')
-    res = sortCharacters(_inString)
-    print(res)
+    # _inString = str('This is easy')
+    # res = sortCharacters(_inString)
+    # print(res)
+    print func([1,2,1],1)

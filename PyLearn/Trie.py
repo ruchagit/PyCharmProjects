@@ -40,7 +40,9 @@ def dfs_helper(r,c,board,node,res,s):
     ans = False
     if node.isWord and s not in res:
         res.append(s)
-        return True
+        ans = True
+    if not node:
+        return ans
     pw = board[r][c]
     board[r][c] = None
     minr = max(0, r - 1)
@@ -48,54 +50,23 @@ def dfs_helper(r,c,board,node,res,s):
     maxr = min(len(board) - 1, r + 1)
     maxc = min(len(board[0]) - 1, c + 1)
     if dfs_helper_helper(minr,c,board,node,res,s):
-        # board[r][c] = pw
         ans = True
-        # return True
     if dfs_helper_helper(maxr,c,board,node,res,s):
-        # board[r][c] = pw
         ans = True
-        # return True
     if dfs_helper_helper(r,minc,board,node,res,s):
-        # board[r][c] = pw
         ans = True
-        # return True
     if dfs_helper_helper(r,maxc,board,node,res,s):
-        # board[r][c] = pw
         ans = True
-        # return True
     board[r][c] = pw
     return ans
-    # if board[minr][c] and board[minr][c] in node.children:
-    #     next_node = node.children[board[minr][c]]
-    #     next_s = s + board[minr][c]
-    #     if dfs_helper(minr,c,board,next_node,res,next_s):
-    #         board[r][c] = pw
-    #         return True
-    # if board[maxr][c] and board[maxr][c] in node.children:
-    #     next_node = node.children[board[maxr][c]]
-    #     next_s = s + board[maxr][c]
-    #     if dfs_helper(maxr,c,board,next_node,res,next_s):
-    #         board[r][c] = pw
-    #         return True
-    # if board[r][minc] and board[r][minc] in node.children:
-    #     next_node = node.children[board[r][minc]]
-    #     next_s = s + board[r][minc]
-    #     if dfs_helper(r,minc,board,next_node,res,next_s):
-    #         board[r][c] = pw
-    #         return True
-    # if board[r][maxc] and board[r][maxc] in node.children:
-    #     next_node = node.children[board[r][maxc]]
-    #     next_s = s + board[r][maxc]
-    #     if dfs_helper(r,maxc,board,next_node,res,next_s):
-    #         board[r][c] = pw
-    #         return True
-    # board[r][c] = pw
-    # return False
+
 
 def dfs_helper_helper(r,c,board,node,res,s):
     if board[r][c] and board[r][c] in node.children:
         next_node = node.children[board[r][c]]
         next_s = s + board[r][c]
+        if not next_node:
+            return False
         if dfs_helper(r,c,board,next_node,res,next_s):
             return True
     return False
@@ -132,7 +103,7 @@ if __name__ == '__main__':
     #               ['Q','S','E','E','D','C'],
     #               ['A','B','C','H','H','O'],
     #               ['K','J','H','G','F','Z']])
-    words = findWords_dfs(["besan"],mat4)
+    words = findWords_dfs(["besa","besan"],mat4)
     print words
 
 

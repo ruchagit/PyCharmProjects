@@ -208,10 +208,56 @@ def print_linked_list(head):
         print p.val,
         p = p.next
 
+
+def getIntersectionNode(headA, headB):
+    """
+    :type head1, head1: ListNode
+    :rtype: ListNode
+    """
+    if headA is None or headB is None:
+        return None
+    listA = headA
+    listB = headB
+    ptrB = headB
+    lenA = 1
+    while listA.next is not None:
+        lenA += 1
+        listA = listA.next
+    listA.next = headA
+    i = 0
+    while i < lenA:
+        if listB:
+            listB = listB.next
+        else: return None
+        i += 1
+    ptr = listB
+    if listB is None:
+        return None
+    listB = listB.next
+    while listB != ptrB and listB != ptr:
+        if listB is None:
+            return None
+        listB = listB.next
+        ptrB = ptrB.next
+    listA.next = None
+    if listB == ptrB:
+        return headB
+    else:
+        return None
 if __name__ == '__main__':
     # head = makeArbitaryLinkedList([1,2,3,4,5],[3,1,5,3,2])
     # copy_head = copyLinkedList(head)
     # print isCopyValid(head,copy_head)
     #superStack(['push 4', 'pop', 'push 3', 'push 5', 'push 2', 'inc 3 1',
     #           'pop', 'push 1', 'inc 2 2', 'push 4', 'pop', 'pop'])
-    reverse_k([1,2,3,4,5],3)
+    # reverse_k([1,2,3,4,5],3)
+    l1 = [1,3,5,7,9,11,13,15,17,19,21]
+    l2 = [2]
+    headA = LinkedList(1)
+    tailA = headA
+    headB = LinkedList(2)
+    tailB = headB
+    # for i in range(1,len(l1)):
+    #     tailA = insert_at_back(headA,tailA,l1[i])
+    node = getIntersectionNode(headB,headA)
+    print node.val
