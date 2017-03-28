@@ -47,10 +47,10 @@ class Solution(object):
     '''
 
     def wild_card_iterative(self,s,p):
-        s_cur = 0;
-        p_cur = 0;
-        match = 0;
-        star = -1;
+        s_cur = 0
+        p_cur = 0
+        match = 0
+        star = -1
         while s_cur < len(s):
             if p_cur < len(p) and (s[s_cur] == p[p_cur] or p[p_cur] == '?'):
                 s_cur = s_cur + 1

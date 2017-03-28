@@ -28,13 +28,20 @@ def game_solved(mat):
     return True
 
 
+def func():
+    l = [1,2,3,4]
+    for i in range(len(l)):
+        print i
+        l.append(0)
+
 if __name__ == '__main__':
-    moves = dict()
-    moves[1] = (0,-1)
-    moves[2] = (0,1)
-    moves[3] = (-1,0)
-    moves[4] = (1,0)
-    mat = [[1,2,3],
-           [4,5,6],
-           [7,0,8]]
-    print matrix_game(mat,2,1,moves)
+    # moves = dict()
+    # moves[1] = (0,-1)
+    # moves[2] = (0,1)
+    # moves[3] = (-1,0)
+    # moves[4] = (1,0)
+    # mat = [[1,2,3],
+    #        [4,5,6],
+    #        [7,0,8]]
+    # print matrix_game(mat,2,1,moves)
+    func()
